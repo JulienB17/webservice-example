@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Linear Trend Web Service</title>
+</head>
+<body>
+
+<h2>Linear Trend Calculator</h2>
+
+<input type="file" id="fileInput" accept=".csv"><br><br>
+
+<label>Discontinuities (comma separated x values):</label><br>
+<input type="text" id="discInput" placeholder="25,48,72"><br><br>
+
+<button onclick="sendData()">Compute Trend</button>
+
+<h3>Plot</h3>
+<img id="plotImg"/>
+
+<h3>Result JSON</h3>
+<pre id="result"></pre>
+
+<script src="script.js"></script>
+
+</body>
+</html>
