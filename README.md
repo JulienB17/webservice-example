@@ -41,8 +41,7 @@ Contains:
 
 Separation of concerns:
 - API layer (Flask)
-- Numerical processing layer (NumPy)
-- Visualization layer (Matplotlib)
+- Scientific computation: numerical processing layer (NumPy), visualization layer (Matplotlib), etc.
 
 ---
 
@@ -71,7 +70,7 @@ Then you can lauch API in this env (see next section 3.)
 
 ## 2.2 With requirements.txt
 
-Install the libraries in another environment (e.g., pyenv, an existing conda environment, etc.) or in the base environment (not recommended!):
+Install the libraries in another existing environment (e.g., pyenv, an existing conda environment, etc.) or in the base environment (not recommended!):
 ```
 pip install -r env/requirements.txt
 ```

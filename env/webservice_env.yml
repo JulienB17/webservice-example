@@ -1,0 +1,10 @@
+name: webservice_env
+channels:
+  - defaults
+dependencies:
+  - python=3.11
+  - anaconda::flask
+  - conda-forge::flask_cors
+  - numpy
+  - matplotlib
+prefix: /home/julienbarneoud/anaconda3/envs/webservice_env
