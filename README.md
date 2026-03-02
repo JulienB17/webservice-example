@@ -98,10 +98,11 @@ python -m http.server 8000
 > Be consistent between client & server API address!
 
 ---
+
 # 4. Example usage
 
 ## Open CSV data
-Example CSV data available in `doc/GOLD_h.csv`, with height time series of GOLD GNSS station (more info on [webigs-ref](https://webigs-rf.ign.fr/stations/GOLD) & [ITRF](https://itrf.ign.fr/en/station/GOLD-40405S028) websites).
+Example CSV data available in `doc/GOLD_h.csv`, with height time serie (ts) of GOLD GNSS station (more info on [webigs-ref](https://webigs-rf.ign.fr/stations/GOLD) & [ITRF](https://itrf.ign.fr/en/station/GOLD-40405S028) websites).
 
 For this simple example:
 - Comma ',' separator
@@ -118,10 +119,12 @@ Server send througth API:
 - Graph (time serie as point, model red lines)
 - JSON (downloadable with button)
 
-## Retry with discontinuities
-User can add date discontinuities to calculate segmented linear trend. In form x values 
-GOLD casediscontinuities: 1995.9,2000,2019,...
-Re-submit as you want & adjust dates of discontinuities! Then you can save final graph & download JSON file (with a,b coeff by segment).
+## Retry with discontinuities!
+Users can add date discontinuities to compute a segmented linear trend.
+In the form, enter discontinuity values as x-values.
+Example for GOLD  (decimal year format): 1995.9, 2000, 2019
+You may resubmit the form as many times as needed to adjust the discontinuity dates.
+Once satisfied, you can save the final plot and download the JSON file (containing the estimated coefficients a and b for each segment).
 
 ---
 
@@ -170,7 +173,7 @@ Downloaded JSON (simplified):
 }
 ```
 
+---
 
 # 6. Author
-
 [Julien Barneoud](https://www.ipgp.fr/annuaire/barneoud/)
