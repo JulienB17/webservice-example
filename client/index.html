@@ -2,25 +2,47 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Linear Trend Web Service</title>
+<title>Segmented Linear Trend</title>
 </head>
 <body>
 
-<h2>Linear Trend Calculator</h2>
+<h2>Segmented Linear Trend Calculator</h2>
 
-<input type="file" id="fileInput" accept=".csv"><br><br>
+<i style="font-size:12px">Flask running API: <a id="apiLink" href="#" target="_blank"></a></i>
 
-<label>Discontinuities (comma separated x values):</label><br>
-<input type="text" id="discInput" placeholder="25,48,72"><br><br>
+<!-- Form -->
+<div style="border:1px solid #ccc; padding:8px; margin-bottom:10px;">
+  <label>1) Import CSV data:</label><br>
+  <input type="file" id="fileInput" accept=".csv"><br>
 
-<button onclick="sendData()">Compute Trend</button>
+    <p style="font-size:11px"><strong>Expected CSV format:</strong><br>
+    - Comma ',' separator<br>
+    - Exactly 2 columns (<code>x</code>, <code>y</code>)<br>
+    - First line considered as header (i.e. columns labels)</p><br>
+   
+  <label>2) [optional] Discontinuities (comma separated x values):</label><br>
+  <input type="text" id="discInput" placeholder="1995.9,2000,..."><br><br>
 
-<h3>Plot</h3>
-<img id="plotImg"/>
+  <button onclick="sendData()">Compute Trend</button>
 
-<h3>Result JSON</h3>
-<pre id="result"></pre>
+</div>
 
+
+<!-- Results -->
+<div id="resultContainer" style="display:none;">
+  <h3>Plot</h3>
+  <img id="plotImg"/>
+
+  <button id="downloadBtn" onclick="downloadJSON()">
+  Download results as JSON
+  </button>
+
+
+  <h3>Estimated Parameters</h3>
+  <pre id="resultBox"></pre>
+</div>
+
+<!-- JS imports -->
 <script src="script.js"></script>
 
 </body>

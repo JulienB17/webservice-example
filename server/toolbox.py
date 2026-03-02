@@ -132,59 +132,59 @@ def compute_trends(x, y, disc):
 # PLOT GENERATION
 # ----------------------------------------------------------------------
 
-def generate_plot(series):
+def generate_plot(series, disc, x_label="x", y_label="y"):
     """
-    Generate a PNG plot encoded as base64 string.
+    Generate PNG plot encoded in base64.
 
-    Plot content:
-        - Black scatter points (data)
-        - Red lines (linear trends)
-
-    Parameters
-    ----------
-    series : list of dict
-        Output from compute_trends().
-
-    Returns
-    -------
-    image_base64 : str
-        PNG image encoded as base64 (for JSON transport).
+    Features:
+    - Black scatter for data
+    - Red lines for linear models
+    - Blue vertical lines for discontinuities
     """
 
     plt.figure()
-    ymin=9e9
-    ymax=0
+
+    first_segment = True
 
     for seg in series:
         xs = np.array(seg["x"])
         ys = np.array(seg["y"])
         a = seg["a"]
         b = seg["b"]
-        
-        #update min max
-        ymin = min(ymin, np.min(ys))
-        ymax= max(ymax, np.max(ys))
 
-        # Scatter plot of original data
-        plt.scatter(xs, ys, color="black")
+        # Plot data (black scatter)
+        if first_segment:
+            plt.plot(xs, ys, '.', color="black", label="data")
+        else:
+            plt.plot(xs, ys, '.', color="black")
 
-        # Plot fitted regression line
-        plt.plot(xs, a * xs + b, color="red")
+        # Plot model (red line)
+        if first_segment:
+            plt.plot(xs, a * xs + b, color="red", label="model", linewidth=2)
+        else:
+            plt.plot(xs, a * xs + b, color="red",  linewidth=2)
 
-    plt.xlabel("x")
-    plt.ylabel("y")
+        first_segment = False
+
+    # Plot discontinuities
+    for i, d in enumerate(disc):
+        if i == 0:
+            plt.axvline(x=d, color="blue", linestyle="--", label="disc")
+        else:
+            plt.axvline(x=d, color="blue", linestyle="--")
+
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
     plt.title("Segmented Linear Trends")
-    #plt.ylim(ymin, ymax)
-    
+    plt.tight_layout()
+    plt.legend()
+    plt.grid()
 
-    # Save figure in memory (not on disk)
     buffer = io.BytesIO()
     plt.savefig(buffer, format="png")
     plt.close()
 
     buffer.seek(0)
-
-    # Encode image for JSON transport
     image_base64 = base64.b64encode(buffer.read()).decode("utf-8")
 
     return image_base64

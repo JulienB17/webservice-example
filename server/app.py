@@ -40,11 +40,9 @@ def super_endpoint():
     return "Welcome to the webservice API !"
 
 
-@app.route("/linear_trend", methods=["POST"])
+@app.route("/api/linear_trend", methods=["POST"])
 def linear_trend():
     """
-    Main API endpoint.
-
     Expected JSON input:
     --------------------
     {
@@ -60,24 +58,27 @@ def linear_trend():
         "image": "base64_string"
     }
     """
+
     data = request.json
 
     x = data.get("x", [])
     y = data.get("y", [])
     disc = data.get("disc", [])
+    x_label = data.get("x_label", "x")
+    y_label = data.get("y_label", "y")
 
-    # Basic validation
     if len(x) != len(y):
         return jsonify({"error": "x and y must have same length"}), 400
 
-    # Scientific computation
     series = tb.compute_trends(x, y, disc)
 
-    # Generate PNG plot
-    image = tb.generate_plot(series)
+    image = tb.generate_plot(series, disc, x_label, y_label)
 
     return jsonify({
         "series": series,
+        "disc": disc,              # returned disc list (client plot...)
+        "x_label": x_label,
+        "y_label": y_label,
         "image": image
     })
 
