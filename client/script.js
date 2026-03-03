@@ -69,7 +69,7 @@ function sendData() {
             ? discText.split(",").map(Number)
             : [];
 
-        fetch(`${API_BASE_URL}/api/linear_trend`, {
+        fetch(`${API_BASE_URL}/linear_trend`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({

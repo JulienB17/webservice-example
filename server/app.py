@@ -12,7 +12,7 @@ Responsibilities:
 @author: julienbarneoud
 """
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Blueprint
 from flask_cors import CORS
 
 #internal import
@@ -33,14 +33,19 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+# NOTE BASE URL (like '/api') configurable; avoids manual '/api/' in routes; can be adjusted at deployment
 
 @app.route('/', methods=["GET"])
-def super_endpoint():
+def welcome_endpoint():
     
     return "Welcome to the webservice API !"
 
 
-@app.route("/api/linear_trend", methods=["POST"])
+###############################################################################
+#### Webservice main endpoints (trend computation, etc.)
+################################################################################
+
+@app.route("/linear_trend", methods=["POST"]) 
 def linear_trend():
     """
     Expected JSON input:
@@ -81,6 +86,61 @@ def linear_trend():
         "y_label": y_label,
         "image": image
     })
+
+
+####################################################################################
+###### Tests & examples (GET, POST,...)
+##################################################################################
+
+@app.route("/station/<string:country>/<string:name_station>", methods=["GET"])
+def get_station(country, name_station):
+    """
+    Basic GET example using a path parameter.
+
+    URL example:
+    http://127.0.0.1:5000/station/USA/GOLD
+
+    The station country & name are part of the URL path.
+    This is typically used to identify a specific resource.
+    """
+
+    return jsonify({
+        "type": "path_parameter",
+        "country": country,
+        "station": name_station,
+        "message": f"Station '{name_station}' in country '{country}' successfully received."
+    })
+
+
+@app.route("/sum", methods=["GET"])
+def sum_operation():
+    """
+    Basic GET example using query parameters.
+
+    URL example:
+    http://127.0.0.1:5000/sum?a=10&b=5
+
+    Query parameters are typically used for filters or optional arguments.
+    """
+
+    a = request.args.get("a", type=float)
+    b = request.args.get("b", type=float)
+
+    if a is None or b is None:
+        return jsonify({
+            "error": "Missing parameters. Please provide 'a' and 'b'."
+        }), 400
+
+    result = a + b
+
+    return jsonify({
+        "type": "query_parameter",
+        "operation": "addition",
+        "a": a,
+        "b": b,
+        "result": result
+    })
+
 
 
 if __name__ == "__main__":

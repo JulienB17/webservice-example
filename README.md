@@ -79,11 +79,13 @@ pip install -r env/requirements.txt
 
 # 3. Run the Application
 
-From the `server` directory, lauch flask server (already in `app.py` __main__):
+Server API is built with Flask ([official documentation here](https://flask.palletsprojects.com/en/stable/quickstart/)). From the `server` directory, lauch flask server **(already in `app.py` __main__)**:
 
 ```
 python app.py
 ```
+> `flask run`could also be use, but HOST & PORT must be define as argument. Ex: `flask run --host=0.0.0.0`
+
 The server runs on [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
 Open the client in a browser. From the `client` directory you can lauch a http server (avoid "Cross origin" issues):
@@ -91,10 +93,10 @@ Open the client in a browser. From the `client` directory you can lauch a http s
 python -m http.server 8000
 ```
 
-> API domain & port may be configure: 
-> server/app.py: var `HOST` and `PORT`
-> client/script.js: const `API_BASE_URL`
-> Be consistent between client & server API address!
+API domain & port may be configure: 
+- server/app.py: var `HOST` and `PORT`
+- client/script.js: const `API_BASE_URL`
+- => Be consistent between client & server API address!
 
 ---
 
@@ -174,5 +176,13 @@ Downloaded JSON (simplified):
 
 ---
 
-# 6. Author
+# 6. Developer corner & advices
+
+* All Flask API endpoints listed in `server/app.py`, good to keep easily readable. Avoid huge scentific dev inside -> import from other python toolboxs, classes etc.
+* In case of server updates, better to restart API (not always automatic script reloads..)
+* The API BASE URL (e.g., all endpoints start with "/api/") can be configured. This avoids manually prepending "/api/" to every route in your code. It can also be adjusted at deployment time on the server (e.g., via Apache or Nginx) if the application is served under a different path or subdirectory.
+
+---
+
+# Author
 [Julien Barneoud](https://www.ipgp.fr/annuaire/barneoud/)
