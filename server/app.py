@@ -12,7 +12,7 @@ Responsibilities:
 @author: julienbarneoud
 """
 
-from flask import Flask, request, jsonify, Blueprint
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 #internal import
