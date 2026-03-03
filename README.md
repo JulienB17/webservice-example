@@ -100,7 +100,7 @@ API domain & port may be configure:
 
 ---
 
-# 4. Example usage
+# 4. Example use case
 
 ## Open CSV data
 Example CSV data available in `doc/GOLD_h.csv`, with height time serie (ts) of GOLD GNSS station (more info on [webigs-ref](https://webigs-rf.ign.fr/stations/GOLD) & [ITRF](https://itrf.ign.fr/en/station/GOLD-40405S028) websites).
@@ -116,7 +116,7 @@ Data send as JSON, result received as JSON (see 5. Section)
 
 
 ## See results
-Server send througth API:
+Server sends througth API:
 - Graph (time serie as point, model red lines)
 - JSON (downloadable with button)
 
